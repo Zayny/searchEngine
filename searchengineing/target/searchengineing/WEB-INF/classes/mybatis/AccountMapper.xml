@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="searchengine.mapper.AccountMapper">
+
+
+	<resultMap id="BaseResultMap" type="searchengine.model.Account">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="industry" property="industry" jdbcType="VARCHAR" />
+		<result column="activate_code" property="activateCode" jdbcType="VARCHAR" />
+		<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+		<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,age ,name,password, email, mobile, industry,activate_code,create_on,update_on
+	</sql>
+
+
+
+	<update id="modify" parameterType="searchengine.model.Account">
+		update account
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="industry != null">
+				industry = #{industry,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getById" parameterType="long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from account a
+		where a.id=#{id,jdbcType=INTEGER}
+	</select>
+	<insert id="add" parameterType="searchengine.model.Account"
+		useGeneratedKeys="true">
+		insert into account (
+		<include refid="Base_Column_List" />
+		)
+		values(
+		#{id,jdbcType=INTEGER},
+		#{age,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{industry,jdbcType=VARCHAR},
+		#{activateCode,jdbcType=VARCHAR},
+		#{createOn,jdbcType=TIMESTAMP},
+		#{updateOn,jdbcType=TIMESTAMP}
+		)
+
+	</insert>
+	<select id="getByCode" parameterType="String" resultType="long">
+		SELECT COUNT(1) FROM account a WHERE a.activate_code =#{value} AND a.status = 0
+	</select>
+	<update id="activiteByCode" parameterType="String">
+		UPDATE account a SET a.status = 1 WHERE a.activate_code = #{value}
+	</update>
+	<select id="login" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from account a
+		where a.email=#{email,jdbcType=VARCHAR} and a.password=#{password,jdbcType=VARCHAR}
+	</select>
+</mapper>

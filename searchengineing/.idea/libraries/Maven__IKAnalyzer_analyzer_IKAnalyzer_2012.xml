@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: IKAnalyzer.analyzer:IKAnalyzer:2012">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/IKAnalyzer/analyzer/IKAnalyzer/2012/IKAnalyzer-2012.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/IKAnalyzer/analyzer/IKAnalyzer/2012/IKAnalyzer-2012-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/IKAnalyzer/analyzer/IKAnalyzer/2012/IKAnalyzer-2012-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
